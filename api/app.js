@@ -9,7 +9,7 @@ var corsOptions = {
 
 const db = require("./models");
 db.sequelize.sync({ force: false }).then(() => {
-    console.log("Drop and re-sync db.");
+    console.log("Database is synced.");
 });
 
 app.use(cors(corsOptions));
@@ -22,12 +22,16 @@ app.use(express.urlencoded({ extended: true }));
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application." });
+  res.json({ message: "Welcome to the application." });
 });
 
+// Include existing routes
 require("./routes/contacts.routes")(app);
 require("./routes/phones.routes")(app);
 require("./routes/stats.routes")(app);
+
+// Include the new companies routes
+require("./routes/companies.routes")(app);
 
 // set port, listen for requests
 const PORT = 5000;
