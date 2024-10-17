@@ -1,40 +1,35 @@
-const express = require("express");
-const cors = require("cors");
+const express = require('express')
+const cors = require('cors')
 
-const app = express();
+const app = express()
 
 var corsOptions = {
-  origin: "http://localhost:3000"
-};
+  origin: 'http://localhost:3000',
+}
 
-const db = require("./models");
+const db = require('./models')
 db.sequelize.sync({ force: false }).then(() => {
-    console.log("Database is synced.");
-});
+  console.log('Drop and re-sync db.')
+})
 
-app.use(cors(corsOptions));
+app.use(cors(corsOptions))
 
-// parse requests of content-type - application/json
-app.use(express.json());
+app.use(express.json())
 
-// parse requests of content-type - application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }))
 
 // simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to the application." });
-});
+app.get('/', (req, res) => {
+  res.json({ message: 'Welcome to bezkoder application.' })
+})
 
-// Include existing routes
-require("./routes/contacts.routes")(app);
-require("./routes/phones.routes")(app);
-require("./routes/stats.routes")(app);
-
-// Include the new companies routes
-require("./routes/companies.routes")(app);
+require('./routes/contacts.routes')(app)
+require('./routes/phones.routes')(app)
+require('./routes/stats.routes')(app)
+require('./routes/company.routes')(app)
 
 // set port, listen for requests
-const PORT = 5000;
+const PORT = 5000
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
-});
+  console.log(`Server is running on port ${PORT}.`)
+})
