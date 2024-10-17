@@ -1,138 +1,68 @@
-# README.md
-
-IMPORTANT: Once you've cloned this to your forked repository, ensure that you continuously update this document as you complete each task to demonstrate your ongoing progress.
-
-Please include your shared repository link here:
-
-Example:
-Choiru's shared repository: https://github.com/choiruzain-latrobe/Assignment2.git
+# Full Stack Application - Bonus Task
+# Repo Link: https://github.com/Riwajchalise/A2-Riwaj-21846333
+### Developer: Riwaj Chalise  
+### Student ID: 21846333
 
 
-Make sure for **your case it is in Private**
-## Access Database
-1 **Plsql Cheat Sheet:**
-You can refer to the PostgreSQL cheat sheet [here](https://www.postgresqltutorial.com/postgresql-cheat-sheet/).
+## Overview
 
-2 **Know the Container ID:**
-To find out the container ID, execute the following command:
-   ```bash
-   docker ps
-    9958a3a534c9   testsystem-nginx           "/docker-entrypoint.…"   6 minutes ago   Up 6 minutes   0.0.0.0:80->80/tcp   testsystem-nginx-1
-    53121618baa4   testsystem-frontend        "docker-entrypoint.s…"   6 minutes ago   Up 6 minutes   3000/tcp             testsystem-frontend-1
-    c89e46ac94b0   testsystem-api             "docker-entrypoint.s…"   6 minutes ago   Up 6 minutes   5000/tcp             testsystem-api-1
-    9f4aea7cf538   postgres:15.3-alpine3.18   "docker-entrypoint.s…"   6 minutes ago   Up 6 minutes   5432/tcp             testsystem-db-1
-   ```
-3. Running the application
+This project is a full-stack web application developed as part of the Assignment 2 bonus task. The application features a back-end API built with **Node.js** and **Sequelize ORM**, as well as a front-end interface built with **React**. It manages three tables: **Items**, **Customers**, and **Orders**, and supports full CRUD operations (Create, Read, Update, Delete) across all entities. Data persistence is ensured using **PostgreSQL**, and the front-end allows for real-time interaction with the data.
 
-**docker compose command:**
-   ```bash
-   docker compose up --build
-   ```
+## Features
 
-4 **Access postgreSQL in the container:**
-Once you have the container ID, you can execute the container using the following command:
-You will see the example of running the PostgreSQL inside the container.
-   ```bash
-   docker exec -it testsystem-db-1 psql -U postgres
-   choiruzain@MacMarichoy TestSystem % docker exec -it testsystem-db-1 psql -U postgres                                       
-   psql (15.3)
-   Type "help" for help.
-   
-   postgres=# \dt
-             List of relations
-    Schema |   Name   | Type  |  Owner   
-   --------+----------+-------+----------
-    public | contacts | table | postgres
-    public | phones   | table | postgres
-   (2 rows)
-  
-    postgres=# select * from contacts;
-    id |  name  |         createdAt         |         updatedAt         
-   ----+--------+---------------------------+---------------------------
-     1 | Helmut | 2024-08-08 11:57:57.88+00 | 2024-08-08 11:57:57.88+00
-    (1 row)
-    postgres=# select * from phones;
-    id | phone_type |   number    | contactId |         createdAt          |         updatedAt          
-   ----+------------+-------------+-----------+----------------------------+----------------------------
-     1 | Work       | 081431      |         1 | 2024-08-08 11:59:04.386+00 | 2024-08-08 11:59:04.386+00
+### 1. Database Design
+The application contains three tables:
+- **items**: Stores details about the items, with attributes such as `item_id`, `item_name`, `price`, and `quantity`.
+- **customers**: Contains customer information, including `customer_id`, `customer_name`, and `email`.
+- **orders**: Represents purchase orders, associating `item_id` with `customer_id` along with an `order_date`.
+
+### 2. API Implementation
+The following 12 APIs have been implemented to perform CRUD operations on the three tables:
+
+- **Items API**:  
+  - `POST /items`: Create a new item.  
+  - `GET /items`: Retrieve all items.  
+  - `GET /items/:item_id`: Retrieve an item by ID.  
+  - `PUT /items/:item_id`: Update an item by ID.  
+  - `DELETE /items/:item_id`: Delete an item by ID.
+
+- **Customers API**:  
+  - `POST /customers`: Create a new customer.  
+  - `GET /customers`: Retrieve all customers.  
+  - `GET /customers/:customer_id`: Retrieve a customer by ID.  
+  - `PUT /customers/:customer_id`: Update a customer by ID.  
+  - `DELETE /customers/:customer_id`: Delete a customer by ID.
+
+- **Orders API**:  
+  - `POST /orders`: Create a new order.  
+  - `GET /orders`: Retrieve all orders.  
+  - `GET /orders/:order_id`: Retrieve an order by ID.
+
+### 3. Data Persistence
+The application uses **Sequelize ORM** to interact with a **PostgreSQL** database. This ensures data integrity and persistence across all operations, including creation, update, and deletion of records. Relationships between tables (such as customer and order data) are properly managed using foreign keys to ensure consistency.
+<img width="468" alt="image" src="https://github.com/user-attachments/assets/7a0c86c7-7805-451b-967a-3c97d85a5a98">
 
 
-postgres=# select * from contacts;
-   ```
-Replace `container_ID` with the actual ID of the container you want to execute.
+### 4. Front-End Implementation
+A responsive front-end interface was developed using **React**. The interface allows users to:
+- **View and manage customers**: Add, update, and delete customer records.
+- **Manage phone records**: Create, update, and delete associated phone numbers for each customer.
+- **View order and item data**: Create and view orders in relation to customers and items.
+- **View statistics**: A statistics component provides an overview of the total number of customers, items, and orders, along with the newest and oldest records.
+<img width="468" alt="image" src="https://github.com/user-attachments/assets/57351e43-713f-4c27-a344-47d7d912ed89">
 
-## Executing API
+<img width="468" alt="image" src="https://github.com/user-attachments/assets/40956d13-8e6b-4fee-9220-f82a779acd6b">
+<img width="468" alt="image" src="https://github.com/user-attachments/assets/9c8f7e27-c2ac-48fc-b538-c8f2148587df">
+<img width="468" alt="image" src="https://github.com/user-attachments/assets/44b9e85a-d9bc-4ad4-a9d0-19ab230a987e">
+<img width="468" alt="image" src="https://github.com/user-attachments/assets/3fb4aa56-f4f4-44ec-80bf-77ef49193ffd">
+<img width="468" alt="image" src="https://github.com/user-attachments/assets/88af95fc-fd0a-4b7f-a1e7-4a4bd956a26b">
+<img width="468" alt="image" src="https://github.com/user-attachments/assets/89032c60-4304-4092-b04b-02f0a3e03dd6">
 
-### Contact API
-
-
-1. Add contacts API  (POST)
-```bash
-http post http://localhost/api/contacts name="Choiru"
-        
-choiruzain@MacMarichoy-7 TestSystem % http post http://localhost/api/contacts name="Choiru"
-HTTP/1.1 200 OK
-Access-Control-Allow-Origin: http://localhost:3000
-Connection: keep-alive
-Content-Length: 102
-Content-Type: application/json; charset=utf-8
-Date: Thu, 08 Aug 2024 21:01:53 GMT
-ETag: W/"66-FmPYAaIkyQoroDwP2JsAZjWTAxs"
-Server: nginx/1.25.1
-Vary: Origin
-X-Powered-By: Express
-
-{
-"createdAt": "2024-08-08T21:01:53.017Z",
-"id": 1,
-"name": "Choiru",
-"updatedAt": "2024-08-08T21:01:53.017Z"
-}
-
-```
-2 Get contacts API  (GET)
-
-```bash
-http get http://localhost/api/contacts
-
-
-choiruzain@MacMarichoy-7 TestSystem % http get http://localhost/api/contacts
-HTTP/1.1 200 OK
-Access-Control-Allow-Origin: http://localhost:3000
-Connection: keep-alive
-Content-Length: 104
-Content-Type: application/json; charset=utf-8
-Date: Thu, 08 Aug 2024 21:04:58 GMT
-ETag: W/"68-V+4KuL2xahYt8YAkKG6rKdR7wHg"
-Server: nginx/1.25.1
-Vary: Origin
-X-Powered-By: Express
-
-[
-{
-"createdAt": "2024-08-08T21:01:53.017Z",
-"id": 1,
-"name": "Choiru",
-"updatedAt": "2024-08-08T21:01:53.017Z"
-}
-]
-
-
-```
-3. Show/create the API commmand to delete the contacts (DELETE)
-
-```bash
+### 5. How to Run the Application
+1. Clone the repository.
+docker-compose up
 
 
 
-
-
-```
-
-4. Show/create the API command to edit the contacts (PUT)
-```
-http get http://localhost/api/contacts/1/phones
-
-```
-
-### Phone API
+### 6. Conclusion
+This application demonstrates the implementation of a full-stack solution, combining database design, API development, and front-end interaction. It offers robust data management capabilities, ensuring data integrity and a user-friendly interface for managing records.
